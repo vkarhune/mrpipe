@@ -1,3 +1,4 @@
+#' @export
 # align effect alleles
 align_eas <- function(d = d_mr){
   d_out <- within(d, {

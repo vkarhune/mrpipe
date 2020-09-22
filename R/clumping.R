@@ -1,3 +1,4 @@
+#' @export
 clumping <- function(d_input = d, r2 = clump_r2, kb = clump_kb, bychr = T){
   if(r2 < 0){
     cat(sprintf("No clumping done\n"))

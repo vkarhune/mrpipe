@@ -1,3 +1,4 @@
+#' @export
 # performs MR and creates output
 
 perform_mr <- function(d_input = d_mr){
