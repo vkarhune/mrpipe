@@ -1,7 +1,7 @@
 #' @export
 # performs MR and creates output
 
-perform_mr <- function(d_input = d_mr){
+perform_mr <- function(d_input = d_mr, output_name = NULL){
   mr_input_data <- MendelianRandomization::mr_input(
     bx = d_input$BETA_exposure,
     bxse = d_input$SE_exposure,
@@ -29,9 +29,9 @@ perform_mr <- function(d_input = d_mr){
   # ADD HERE IF NEEDED
   objects_to_save <- ls()[ls() %in% c("d_input", "res_ivwr", "res_egger", "res_wm", "res_wmode")]
 
-  output <- paste0(c(expo, args[-1]), collapse="_")
+  # output <- paste0(c(expo, args[-1]), collapse="_")
 
-  save(list=objects_to_save, file = paste0("results/", output, ".RData"))
+  save(list=objects_to_save, file = paste0("results/", output_name, ".RData"))
 
 
 }
