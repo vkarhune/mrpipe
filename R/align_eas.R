@@ -24,6 +24,8 @@ align_eas <- function(d = d_mr){
 
   if(mis1 != mis2) warning(sprintf("Check alignments for %s", expo))
   ### end align
+  
+  return(d_out)
 
 
 }
