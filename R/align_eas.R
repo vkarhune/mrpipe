@@ -1,6 +1,6 @@
 #' @export
 # align effect alleles
-align_eas <- function(d = d_mr){
+align_eas <- function(d = d_mr, expo = expo){
   d_out <- within(d, {
     EA_exposure <- toupper(EA_exposure)
     NEA_exposure <- toupper(NEA_exposure)
