@@ -1,15 +1,15 @@
 #' @export
 # read summary statistics
 read_summarystats <- function(
-  phenotype,
+  phenotype = NULL,
   type = c("exposure", "outcome", "pheno1", "pheno2"),
   file = NULL,
   cols = NULL){
   
-  # BETA_outcome, SE_outcome, EA_outcome, NEA_outcome, and outcome_cols
   
   if(is.null(file)){
     file <- switch(phenotype,
+                   "T2DM" = "data/MVP.T2D.ME.MAF001.dbGaP.txt.gz",
                    "CAD" = "data/cad.add.160614.website.txt",
                    "strokeAS" = "data/MEGASTROKE.1.AS.MANTRA.GC_filtered_X_nocases_het.TBL",
                    "strokeLAS" = "data/MEGASTROKE.3.LAS.MANTRA.GC_filtered_X_nocases_het.TBL",
