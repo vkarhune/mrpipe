@@ -58,6 +58,10 @@ read_summarystats <- function(
                    "eGFR" = c("RSID", "Allele1", "Allele2", "Effect", "P.value", "StdErr", "Freq1"),
                    "hair" = c("rsid", "EA", "NEA", "beta", "se", "pval")
     )
+    
+    if(type %in% c("exposure", "pheno1")){
+      cols <- c("CHR", "POS", cols)
+    }
   }
   
   
@@ -87,9 +91,9 @@ read_summarystats <- function(
   d_out <- d_out[,..cols]
   
   outnames <- switch(type,
-                     "exposure" = c("rsid", "EA_exposure", "NEA_exposure", "BETA_exposure", "SE_exposure", "P_exposure", "EAF_exposure"),
+                     "exposure" = c("CHR", "POS", "rsid", "EA_exposure", "NEA_exposure", "BETA_exposure", "SE_exposure", "P_exposure", "EAF_exposure"),
                      "outcome" = c("rsid", "EA_outcome", "NEA_outcome", "BETA_outcome", "SE_outcome", "P_outcome", "EAF_outcome"),
-                     "pheno1" = c("SNPID", "EA1", "NEA1", "BETA1", "SE1", "P1", "EAF1"),
+                     "pheno1" = c("CHR", "POS", "SNPID", "EA1", "NEA1", "BETA1", "SE1", "P1", "EAF1"),
                      "pheno2" = c("SNPID", "EA2", "NEA2", "BETA2", "SE2", "P2", "EAF2"),
                      NULL
   )
