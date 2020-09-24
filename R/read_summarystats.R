@@ -36,6 +36,7 @@ read_summarystats <- function(
   
   if(is.null(cols)){
     cols <- switch(phenotype,
+                   "T2DM" = c("RSID", "EA", "NEA", "BETA", "SE", "P", "EAF"),
                    "CAD" = c("markername", "effect_allele", "noneffect_allele", "beta", "se_dgc", "p_dgc", "effect_allele_freq"),
                    "strokeAS" = c("MarkerName", "Effect_allele", "Ref_allele", "Effect", "StdErr", "P.value", "Freq1"),
                    "strokeLAS" = c("MarkerName", "Effect_allele", "Ref_allele", "Effect", "StdErr", "P.value", "Freq1"),
