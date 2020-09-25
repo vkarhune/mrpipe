@@ -105,7 +105,9 @@ read_summarystats <- function(
       dlist <- split(d_out, d_out[["CHR"]])
       d_out <- rbindlist(lapply(names(dlist), function(x){
         d_key <- read_key(file = keyfile, chr = x)
-        dd <- dlist[[x]][d_key, on = c("chrpos" = chrpos_column), nomatch = NULL]
+        d0 <- dlist[[x]]
+        # dd <- merge.data.table(d0, d_key, by.x = get(chrpos_column), by.y = "chrpos")
+        dd <- d_key[d0, on = c("chrpos" = (chrpos_column)), nomatch = NULL]
         return(dd)
       }))
       rm(dlist)
