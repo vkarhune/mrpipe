@@ -95,19 +95,19 @@ read_summarystats <- function(
   
   if(!(is.null(pthresh))){
     pvalcol <- cols[length(cols) - 1]
-    d_out <- d_out[,(pvalcol) < pthresh]
+    d_out <- d_out[get(pvalcol) < pthresh,]
   }
   
   if(!(is.null(no_rsid))){
     if(no_rsid){
       # cat(sprintf("No rsids in the summary statistics for %s\n", phenotype))
-      d_out[,c("CHR", "POS") := lapply(1:2, function(x) sapply(strsplit(chrpos_column, ":"), "[[", x))]
+      d_out[,c("CHR", "POS") := lapply(1:2, function(x) sapply(strsplit(get(chrpos_column), ":"), "[[", x))]
       dlist <- split(d_out, d_out[["CHR"]])
-      d_out <- rbindlist(names(dlist), function(x, chrpos = chrpos_column){
+      d_out <- rbindlist(lapply(names(dlist), function(x){
         d_key <- read_key(file = keyfile, chr = x)
-        dd <- dlist[[x]][d_key, on = c("chrpos" = chrpos), nomatch = NULL]
+        dd <- dlist[[x]][d_key, on = c("chrpos" = chrpos_column), nomatch = NULL]
         return(dd)
-      })
+      }))
       rm(dlist)
     }
   }
