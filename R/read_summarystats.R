@@ -7,7 +7,7 @@ read_summarystats <- function(
   cols = NULL,
   no_rsid = NULL,
   chrpos_column = NULL,
-  keyfile = "data/sysdata.rda"){
+  keyfile = "data/"){
   
   
   if(is.null(file)){
