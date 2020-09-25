@@ -4,7 +4,8 @@ read_summarystats <- function(
   phenotype = NULL,
   type = c("exposure", "outcome", "pheno1", "pheno2"),
   file = NULL,
-  cols = NULL){
+  cols = NULL,
+  no_rsid = NULL){
   
   
   if(is.null(file)){
@@ -87,6 +88,13 @@ read_summarystats <- function(
   if(phenotype %in% "CRP"){
     d_out[,"EAF" := NA]
     d_out[,"Pval" := 2*pnorm(abs(Effect/StdErr), lower.tail = F)]
+  }
+  
+  if(!(is.null(no_rsid))){
+    if(no_rsid){
+      #KESKEN
+      cat(sprintf("No rsids in the summary statistics for %s\n", phenotype))
+    }
   }
   
   d_out <- d_out[,..cols]
