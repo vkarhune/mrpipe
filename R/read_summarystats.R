@@ -5,7 +5,8 @@ read_summarystats <- function(
   type = c("exposure", "outcome", "pheno1", "pheno2"),
   file = NULL,
   cols = NULL,
-  no_rsid = NULL){
+  no_rsid = NULL,
+  chrpos_column = NULL){
   
   
   if(is.null(file)){
@@ -92,8 +93,14 @@ read_summarystats <- function(
   
   if(!(is.null(no_rsid))){
     if(no_rsid){
-      #KESKEN
-      cat(sprintf("No rsids in the summary statistics for %s\n", phenotype))
+      # cat(sprintf("No rsids in the summary statistics for %s\n", phenotype))
+      dlist <- split(d_out, d[["CHR"]])
+      d_out <- rbindlist(names(dlist), function(x, chrpos = chrpos_column){
+        d_key <- read_key(file = "data/sysdata.rda", chr = x)
+        dd <- dlist[[x]][d_key, on = c("chrpos" = chrpos), nomatch = NULL]
+        return(dd)
+      })
+      rm(dlist)
     }
   }
   
