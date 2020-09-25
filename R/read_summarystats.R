@@ -7,7 +7,8 @@ read_summarystats <- function(
   cols = NULL,
   no_rsid = NULL,
   chrpos_column = NULL,
-  keyfile = "data/"){
+  keyfile = "data/",
+  pthresh = NULL){
   
   
   if(is.null(file)){
@@ -92,10 +93,16 @@ read_summarystats <- function(
     d_out[,"Pval" := 2*pnorm(abs(Effect/StdErr), lower.tail = F)]
   }
   
+  if(!(is.null(pthresh))){
+    pvalcol <- cols[length(cols) - 1]
+    d_out <- d_out[,(pvalcol) < pthresh]
+  }
+  
   if(!(is.null(no_rsid))){
     if(no_rsid){
       # cat(sprintf("No rsids in the summary statistics for %s\n", phenotype))
-      dlist <- split(d_out, d[["CHR"]])
+      d_out[,c("CHR", "POS") := lapply(1:2, sapply(strsplit(chrpos_column, ":"), "[[", x))]
+      dlist <- split(d_out, d_out[["CHR"]])
       d_out <- rbindlist(names(dlist), function(x, chrpos = chrpos_column){
         d_key <- read_key(file = keyfile, chr = x)
         dd <- dlist[[x]][d_key, on = c("chrpos" = chrpos), nomatch = NULL]
