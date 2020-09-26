@@ -64,9 +64,10 @@ read_summarystats <- function(
                    "hair" = c("rsid", "EA", "NEA", "beta", "se", "pval")
     )
     
-    if(type %in% c("exposure", "pheno1")){
-      cols <- c("CHR", "POS", cols)
-    }
+  }
+  
+  if(type %in% c("exposure", "pheno1")){
+    cols <- c("CHR", "POS", cols)
   }
   
   
