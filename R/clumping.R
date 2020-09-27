@@ -8,7 +8,7 @@ clumping <- function(d_input = d, r2 = clump_r2, kb = clump_kb, bychr = T, ...){
     # TODO: bychr
     if(!bychr){ cat(sprintf("Option not to clump by chr not implemented yet!\n")) }
     d_out <- data.table::rbindlist(
-      lapply(split(d_input, d_input$chr_name),function(d_nonclumped){
+      lapply(split(d_input, d_input[["CHR"]]),function(d_nonclumped){
         counter <- 0
         while(counter < 10){
           tryCatch( {d_output <- ieugwasr::ld_clump(d_nonclumped,
