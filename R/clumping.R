@@ -1,10 +1,10 @@
 #' @export
-clumping <- function(d_input = d, r2 = clump_r2, kb = clump_kb, bychr = T, ...){
+clumping <- function(d_input = d, r2 = clump_r2, kb = clump_kb, bychr = T, pop = "EUR"){
   if(r2 < 0){
     cat(sprintf("No clumping done\n"))
     d_out <- d_input
   } else {
-    dots <- list(...)
+    # dots <- list(...)
     # TODO: bychr
     if(!bychr){ cat(sprintf("Option not to clump by chr not implemented yet!\n")) }
     d_out <- data.table::rbindlist(
@@ -12,7 +12,7 @@ clumping <- function(d_input = d, r2 = clump_r2, kb = clump_kb, bychr = T, ...){
         counter <- 0
         while(counter < 10){
           tryCatch( {d_output <- ieugwasr::ld_clump(d_nonclumped,
-                                                    clump_kb = kb, clump_r2 = r2, dots)},
+                                                    clump_kb = kb, clump_r2 = r2, pop = pop)},
                     error = function(error){
                     cat(paste0(error))
                     cat("Recovered from error in ieugwasr::ld_clump()\n")
