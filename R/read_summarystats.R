@@ -115,10 +115,15 @@ read_summarystats <- function(
     }
   }
   
+  if(type %in% "exposure"){
+    d_out[,"id" := phenotype]
+    cols <- c(cols, "id")
+  }
+  
   d_out <- d_out[,..cols]
   
   outnames <- switch(type,
-                     "exposure" = c("CHR", "POS", "rsid", "EA_exposure", "NEA_exposure", "BETA_exposure", "SE_exposure", "P_exposure", "EAF_exposure"),
+                     "exposure" = c("CHR", "POS", "rsid", "EA_exposure", "NEA_exposure", "BETA_exposure", "SE_exposure", "pval", "EAF_exposure", "id"),
                      "outcome" = c("rsid", "EA_outcome", "NEA_outcome", "BETA_outcome", "SE_outcome", "P_outcome", "EAF_outcome"),
                      "pheno1" = c("CHR", "POS", "SNPID", "EA1", "NEA1", "BETA1", "SE1", "P1", "EAF1"),
                      "pheno2" = c("SNPID", "EA2", "NEA2", "BETA2", "SE2", "P2", "EAF2"),
