@@ -1,7 +1,7 @@
 #' @export
 # performs MR and creates output
 
-perform_mr <- function(d_input = d_mr, output_name = NULL, expo = expo){
+perform_mr <- function(d_input = d_mr, output_name = NULL, expo = expo, outcome = outcome){
   mr_input_data <- MendelianRandomization::mr_input(
     bx = d_input$BETA_exposure,
     bxse = d_input$SE_exposure,
