@@ -102,7 +102,13 @@ read_summarystats <- function(
   if(!(is.null(no_rsid))){
     if(no_rsid){
       # cat(sprintf("No rsids in the summary statistics for %s\n", phenotype))
-      d_out[,c("CHR", "POS") := lapply(1:2, function(x) sapply(strsplit(get(chrpos_column), ":"), "[[", x))]
+      if(is.null(chrpos_column)){
+        d_out[,"chrpos_column" := paste0(CHR, ":", POS)]
+        chrpos_column <- "chrpos_column"
+      } else {
+        d_out[,c("CHR", "POS") := lapply(1:2, function(x) sapply(strsplit(get(chrpos_column), ":"), "[[", x))]
+      }
+      
       d_out <- d_out[CHR %in% 1:22,]
       dlist <- split(d_out, d_out[["CHR"]])
       d_out <- rbindlist(lapply(names(dlist), function(x){
