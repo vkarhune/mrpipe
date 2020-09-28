@@ -127,7 +127,8 @@ read_summarystats <- function(
     cols <- c(cols, "id")
   }
   
-  if(file %in% c("data/DBP.MVP_AFR_MAF_HWE.txt.gz", "data/SBP.MVP_AFR_MAF_HWE.txt.gz")){
+  if(file %in% c("data/DBP.MVP_AFR_MAF_HWE.txt.gz", "data/DBP.MVP_EUR_MAF_HWE.txt.gz",
+                 "data/SBP.MVP_AFR_MAF_HWE.txt.gz", "data/SBP.MVP_EUR_MAF_HWE.txt.gz")){
     d_out[,c("CHR", "POS") := lapply(1:2, function(x) sapply(strsplit(CHR.BP, ":"), "[[", x))]
   }
   
