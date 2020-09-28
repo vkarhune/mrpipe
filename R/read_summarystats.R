@@ -103,6 +103,7 @@ read_summarystats <- function(
     if(no_rsid){
       # cat(sprintf("No rsids in the summary statistics for %s\n", phenotype))
       d_out[,c("CHR", "POS") := lapply(1:2, function(x) sapply(strsplit(get(chrpos_column), ":"), "[[", x))]
+      d_out <- d_out[CHR %in% 1:22,]
       dlist <- split(d_out, d_out[["CHR"]])
       d_out <- rbindlist(lapply(names(dlist), function(x){
         d_key <- read_key(file = keyfile, chr = x)
