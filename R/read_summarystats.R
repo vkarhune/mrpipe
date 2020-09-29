@@ -68,8 +68,9 @@ read_summarystats <- function(
   
   if(length(cols) == 7 & type %in% c("exposure", "pheno1")){ cols <- c("CHR", "POS", cols) }
   
-  
-  if(phenotype %in% "hair"){
+  if(tools::file_ext(file) %in% "Rds"){
+    d_out <- readRDS(file)
+  } else if(phenotype %in% "hair"){
     d_out <- fread(cmd = paste0("zcat ", file), check.names = T)
     # d_outcome[,"rsid" := fread(cmd = paste0("zcat ../misc/sumstats/variants.tsv.bgz"), check.names = T)$rsid]
     d_out[,"rsid" := fread(cmd = paste0("zcat data/variants.tsv.bgz"), check.names = T)$rsid]
