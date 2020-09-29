@@ -134,7 +134,7 @@ read_summarystats <- function(
     d_out[,c("CHR", "POS") := lapply(1:2, function(x) sapply(strsplit(CHR.BP, ":"), "[[", x))]
   }
   
-  if(type %in% c("exposure", "pheno1") & !("POS" %in% names(d_out))) { cols[2] <- "BP"}
+  # if(type %in% c("exposure", "pheno1") & !("POS" %in% names(d_out))) { cols[2] <- "BP"}
   
   
   d_out <- d_out[,..cols]
