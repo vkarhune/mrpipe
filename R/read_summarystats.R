@@ -8,8 +8,7 @@ read_summarystats <- function(
   no_rsid = NULL,
   chrpos_column = NULL,
   keyfile = "data/",
-  pthresh = NULL, testing = FALSE,
-  no_chrpos_out = FALSE){
+  pthresh = NULL, testing = FALSE){
   
   
   if(is.null(file)){
@@ -67,9 +66,7 @@ read_summarystats <- function(
     
   }
   
-  if(type %in% c("exposure", "pheno1") & !(no_chrpos_out)){
-    cols <- c("CHR", "POS", cols)
-  }
+  if(length(cols) == 7 & type %in% c("exposure", "pheno1")){ cols <- c("CHR", "POS", cols) }
   
   
   if(phenotype %in% "hair"){
