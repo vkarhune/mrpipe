@@ -8,7 +8,8 @@ read_summarystats <- function(
   no_rsid = NULL,
   chrpos_column = NULL,
   keyfile = "data/",
-  pthresh = NULL, testing = FALSE){
+  pthresh = NULL, testing = FALSE,
+  no_chrpos_out = FALSE){
   
   
   if(is.null(file)){
@@ -66,7 +67,7 @@ read_summarystats <- function(
     
   }
   
-  if(type %in% c("exposure", "pheno1")){
+  if(type %in% c("exposure", "pheno1") & !(no_chrpos_out)){
     cols <- c("CHR", "POS", cols)
   }
   
