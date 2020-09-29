@@ -8,7 +8,7 @@ read_summarystats <- function(
   no_rsid = NULL,
   chrpos_column = NULL,
   keyfile = "data/",
-  pthresh = NULL){
+  pthresh = NULL, testing = FALSE){
   
   
   if(is.null(file)){
@@ -82,7 +82,7 @@ read_summarystats <- function(
   } else if(phenotype %in% "ALT"){
     d_out <- fread(cmd = paste0("zcat ", file), check.names = T)
   } else {
-    d_out <- fread(file, check.names = T)
+    d_out <- fread(file, check.names = T, nrows = ifelse(testing, 10000, Inf))
   }
   
   if(phenotype %in% c("BMI")){
@@ -92,6 +92,10 @@ read_summarystats <- function(
   if(phenotype %in% "CRP"){
     d_out[,"EAF" := NA]
     d_out[,"Pval" := 2*pnorm(abs(Effect/StdErr), lower.tail = F)]
+  }
+  
+  if("low_confidence_variant" %in% colnames(d_out)){
+    d_out <- d_out[!(low_confidence_variant),]
   }
   
   if(!(is.null(pthresh))){
