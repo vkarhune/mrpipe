@@ -27,7 +27,8 @@ read_summarystats <- function(
     d_out <- d_out[get(pvalcol) < pthresh,]
   }
   
-  d_out <- rsid_check(d_out, chrpos_column = chrpos_column, keyfile = keyfile)
+  d_out <- rsid_check(d_out, chrpos_column = chrpos_column,
+                      keyfile = keyfile, no_rsid = no_rsid)
   
   
   if(type %in% "exposure"){
