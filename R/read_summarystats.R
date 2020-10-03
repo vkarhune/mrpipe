@@ -12,13 +12,14 @@ read_summarystats <- function(
   
   
   
-  file <- filename(file = file)
+  file <- filename(file = file, phenotype = phenotype)
 
-  cols <- columns(cols = cols)
+  cols <- columns(cols = cols, phenotype = phenotype)
 
   if(length(cols) == 7 & type %in% c("exposure", "pheno1")){ cols <- c("CHR", "POS", cols) }
   
-  d_out <- read_file(file, is_nealelab = is_nealelab, testing = testing, custom = custom)
+  d_out <- read_file(file, is_nealelab = is_nealelab, testing = testing, custom = custom,
+                     phenotype = phenotype)
   
   
   if(!(is.null(pthresh))){
