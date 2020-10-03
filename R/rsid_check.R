@@ -1,6 +1,7 @@
 #' @export
 # check rsid column
-rsid_check <- function(d_out = d_out, chrpos_column = chrpos_column, keyfile = keyfile){
+rsid_check <- function(d_out = d_out, chrpos_column = chrpos_column,
+                       keyfile = keyfile, no_rsid = no_rsid){
 
 if(!(is.null(no_rsid))){
   if(no_rsid){

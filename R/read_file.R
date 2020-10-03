@@ -34,5 +34,6 @@ read_file <- function(file,
     d_out <- d_out[!(low_confidence_variant),]
   }
   
+  return(d_out)
   
 }
