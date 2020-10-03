@@ -1,3 +1,5 @@
+#' @export
+# define columns
 columns <- function(cols = NULL){
 
 if(is.null(cols)){

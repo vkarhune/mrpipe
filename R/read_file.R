@@ -1,3 +1,5 @@
+#' @export
+# read summary statistics file
 read_file <- function(file, is_nealelab = NULL, testing = FALSE, custom = NULL){
   
   if(tools::file_ext(file) %in% "Rds"){

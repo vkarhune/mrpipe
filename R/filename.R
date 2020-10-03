@@ -1,3 +1,5 @@
+#' @export
+# define filename
 filename <- function(file = NULL){
 
 if(is.null(file)){
