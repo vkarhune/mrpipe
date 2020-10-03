@@ -1,6 +1,7 @@
 #' @export
 # read summary statistics file
-read_file <- function(file, is_nealelab = NULL, testing = FALSE, custom = NULL){
+read_file <- function(file,
+                      is_nealelab = NULL, testing = FALSE, custom = NULL, phenotype = phenotype){
   
   if(tools::file_ext(file) %in% "Rds"){
     d_out <- readRDS(file)
