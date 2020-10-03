@@ -1,6 +1,6 @@
 #' @export
 # define filename
-filename <- function(file = NULL){
+filename <- function(file = NULL, phenotype = phenotype){
 
 if(is.null(file)){
   file <- switch(phenotype,

@@ -1,6 +1,6 @@
 #' @export
 # define columns
-columns <- function(cols = NULL){
+columns <- function(cols = NULL, phenotype = phenotype){
 
 if(is.null(cols)){
   cols <- switch(phenotype,
