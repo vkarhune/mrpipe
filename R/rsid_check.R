@@ -2,6 +2,10 @@
 # check rsid column
 rsid_check <- function(d_out = d_out, chrpos_column = chrpos_column,
                        keyfile = keyfile, no_rsid = no_rsid){
+  
+if(!(is.null(chrpos_column))){
+  d_out[,c("CHR", "POS") := lapply(1:2, function(x) as.numeric(sapply(strsplit(get(chrpos_column), ":"), "[[", x)))]
+}
 
 if(!(is.null(no_rsid))){
   if(no_rsid){
@@ -9,8 +13,6 @@ if(!(is.null(no_rsid))){
     if(is.null(chrpos_column)){
       d_out[,"chrpos_column" := paste0(CHR, ":", POS)]
       chrpos_column <- "chrpos_column"
-    } else {
-      d_out[,c("CHR", "POS") := lapply(1:2, function(x) sapply(strsplit(get(chrpos_column), ":"), "[[", x))]
     }
     
     d_out <- d_out[CHR %in% 1:22,]
@@ -24,6 +26,8 @@ if(!(is.null(no_rsid))){
     }))
     rm(dlist)
   }
+} else {
+  d_out <- d_out[CHR %in% 22,]
 }
   
 return(d_out)
