@@ -58,5 +58,9 @@ read_summarystats <- function(
   
   setnames(d_out, cols, outnames)
   
+  if(type %in% c("exposure", "pheno1")){
+    d_out <- d_out[CHR %in% 1:22,]
+  }
+  
   return(d_out)
 }

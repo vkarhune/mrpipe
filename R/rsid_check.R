@@ -26,10 +26,7 @@ if(!(is.null(no_rsid))){
     }))
     rm(dlist)
   }
-} else {
-  setnames(d_out, "chr", "CHR", skip_absent = T)
-  d_out <- d_out[CHR %in% 1:22,]
 }
-  
+
 return(d_out)
 }
