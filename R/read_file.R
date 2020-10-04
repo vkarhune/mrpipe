@@ -31,10 +31,6 @@ read_file <- function(file,
     d_out[,"Pval" := 2*pnorm(abs(Effect/StdErr), lower.tail = F)]
   }
   
-  if("low_confidence_variant" %in% colnames(d_out)){
-    d_out <- d_out[!(low_confidence_variant),]
-  }
-  
   return(d_out)
   
 }

@@ -27,7 +27,7 @@ if(!(is.null(no_rsid))){
     rm(dlist)
   }
 } else {
-  d_out <- d_out[CHR %in% 22,]
+  d_out <- d_out[CHR %in% 1:22,]
 }
   
 return(d_out)
