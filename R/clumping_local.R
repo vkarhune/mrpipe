@@ -1,5 +1,6 @@
 #' @export
-clumping_local <- function(d_input = d, r2 = clump_r2, kb = clump_kb, bychr = T, pop = "EUR"){
+clumping_local <- function(d_input = d, r2 = clump_r2, kb = clump_kb, bychr = T, pop = "EUR",
+                           bfile = paste0("data/", pop)){
   if(r2 < 0){
     cat(sprintf("No clumping done\n"))
     d_out <- d_input
@@ -15,7 +16,7 @@ clumping_local <- function(d_input = d, r2 = clump_r2, kb = clump_kb, bychr = T,
             d_output <- ieugwasr::ld_clump(d_nonclumped,
                                            clump_kb = kb, clump_r2 = r2, pop = pop,
                                            plink_bin = genetics.binaRies::get_plink_binary(),
-                                           bfile = paste0("data/", pop))},
+                                           bfile = bfile)},
                     error = function(error){
                     cat(paste0(error))
                     cat("Recovered from error in ieugwasr::ld_clump()\n")
