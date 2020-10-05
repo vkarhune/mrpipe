@@ -16,7 +16,12 @@ read_file <- function(file,
   if(is_nealelab){
     # d_outcome[,"rsid" := fread(cmd = paste0("zcat ../misc/sumstats/variants.tsv.bgz"), check.names = T)$rsid]
     variant_file <- ifelse(testing, "../misc/sumstats/variants.tsv.bgz", "data/variants.tsv.bgz")
-    d_out[,"rsid" := fread(cmd = paste0("zcat ", variant_file), check.names = T)$rsid]
+    d_ukbb <- fread(cmd = paste0("zcat ", variant_file), check.names = T)
+    ukbbcols <- c("rsid", "variant")
+    d_ukbb <- d_ukbb[,..ukbbcols]
+    d_out <- d_out[d_ukbb, on = c("variant" = "variant"), nomatch = NULL]
+    rm(d_ukbb)
+    # d_out[,"rsid" := fread(cmd = paste0("zcat ", variant_file), check.names = T)$rsid]
     d_out[,c("EA", "NEA") := lapply(4:3, function(x) sapply(strsplit(variant, ":"), "[[", x))]
     d_out <- d_out[!(low_confidence_variant),]
     # } else if(phenotype %in% "CRP"){
