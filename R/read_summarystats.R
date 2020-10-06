@@ -22,6 +22,18 @@ read_summarystats <- function(
                      phenotype = phenotype)
   
   
+  if(!(is.null(custom))){
+    tf <- tempfile(fileext = ".R")
+    writetmp <- file(tf, "w")
+    invisible(lapply(custom, function(cust){
+      cat("d_out[,", cust, "]\n", sep = "", file = writetmp)
+    }))
+    close(writetmp)
+    
+    source(tf)
+    unlink(tf)
+  }
+  
   if(!(is.null(pthresh))){
     pvalcol <- cols[length(cols) - 1]
     d_out <- d_out[get(pvalcol) < pthresh,]
