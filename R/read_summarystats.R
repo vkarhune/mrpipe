@@ -30,7 +30,7 @@ read_summarystats <- function(
     }))
     close(writetmp)
     
-    source(tf)
+    source(tf, local = T)
     unlink(tf)
   }
   
