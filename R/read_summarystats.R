@@ -8,7 +8,8 @@ read_summarystats <- function(
   no_rsid = NULL,
   chrpos_column = NULL,
   keyfile = "data/",
-  pthresh = NULL, testing = FALSE, is_nealelab = NULL, custom = NULL){
+  pthresh = NULL, testing = FALSE, is_nealelab = NULL, custom = NULL,
+  n = NULL){
   
   
   
@@ -54,10 +55,7 @@ read_summarystats <- function(
   }
   
   # if(type %in% c("exposure", "pheno1") & !("POS" %in% names(d_out))) { cols[2] <- "BP"}
-  
-  
-  d_out <- d_out[,..cols]
-  
+
   outnames <- switch(type,
                      "exposure" = c("CHR", "POS", "rsid", "EA_exposure", "NEA_exposure", "BETA_exposure", "SE_exposure", "pval", "EAF_exposure", "id"),
                      "outcome" = c("rsid", "EA_outcome", "NEA_outcome", "BETA_outcome", "SE_outcome", "P_outcome", "EAF_outcome"),
@@ -66,9 +64,32 @@ read_summarystats <- function(
                      NULL
   )
   
+  if(!(is.null(n)){
+    
+    if(length(n) == 1){
+      cols <- c(cols, "N")
+      outnames <- c(outnames, "N")
+      
+      if(is.numeric(n)){ d_out[,"N" := n]
+      } else {
+        setnames(d_out, n, "N")
+      }
+    } else {
+      
+      cols <- c(cols, "Ncases", "Ncontrols")
+      outnames <- c(outnames, "Ncases", "Ncontrols")
+      
+      if(is.numeric(n)) { d_out[,c("Ncases", "Ncontrols") := as.list(n)]
+      } else {
+          setnames(d_out, n, c("Ncases", "Ncontrols"))
+        }
+    }
+  })  
   
+  d_out <- d_out[,..cols]
   
   setnames(d_out, cols, outnames)
+
   
   if(type %in% c("exposure", "pheno1")){
     d_out <- d_out[CHR %in% 1:22,]
