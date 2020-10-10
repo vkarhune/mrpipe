@@ -3,7 +3,7 @@
 R2 <- function(beta = BETA_exposure, eaf = EAF_exposure, var = 1,
                ncases = NULL, ncontrols = NULL, prevalence = NULL){
   
-  if(ncases = 0){
+  if(ncases == 0){
     ncases <- NULL
     ncontrols <- NULL
   }
