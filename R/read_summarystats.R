@@ -80,9 +80,9 @@ read_summarystats <- function(
       outnames <- c(outnames, paste0("Ncases_", type), paste0("Ncontrols_", type))
       
       if(is.numeric(n)) {
-        d_out[,paste0("Ncases_", type), paste0("Ncontrols_", type) := as.list(n)]
+        d_out[,c(paste0("Ncases_", type), paste0("Ncontrols_", type)) := as.list(n)]
       } else {
-          setnames(d_out, n, paste0("Ncases_", type), paste0("Ncontrols_", type))
+          setnames(d_out, n, c(paste0("Ncases_", type), paste0("Ncontrols_", type)))
         }
     }
   }
