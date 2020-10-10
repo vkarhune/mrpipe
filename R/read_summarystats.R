@@ -64,7 +64,7 @@ read_summarystats <- function(
                      NULL
   )
   
-  if(!(is.null(n)){
+  if(!(is.null(n))){
     
     if(length(n) == 1){
       cols <- c(cols, "N")
@@ -84,12 +84,13 @@ read_summarystats <- function(
           setnames(d_out, n, c("Ncases", "Ncontrols"))
         }
     }
-  })  
+  }
   
   d_out <- d_out[,..cols]
   
   setnames(d_out, cols, outnames)
 
+  
   
   if(type %in% c("exposure", "pheno1")){
     d_out <- d_out[CHR %in% 1:22,]
