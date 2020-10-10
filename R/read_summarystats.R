@@ -67,21 +67,22 @@ read_summarystats <- function(
   if(!(is.null(n))){
     
     if(length(n) == 1){
-      cols <- c(cols, "N")
-      outnames <- c(outnames, "N")
+      cols <- c(cols, paste0("N", type))
+      outnames <- c(outnames, paste0("N", type))
       
-      if(is.numeric(n)){ d_out[,"N" := n]
+      if(is.numeric(n)){ d_out[,paste0("N", type) := n]
       } else {
-        setnames(d_out, n, "N")
+        setnames(d_out, n, paste0("N", type))
       }
     } else {
       
-      cols <- c(cols, "Ncases", "Ncontrols")
-      outnames <- c(outnames, "Ncases", "Ncontrols")
+      cols <- c(cols, paste0("Ncases_", type), paste0("Ncontrols_", type))
+      outnames <- c(outnames, paste0("Ncases_", type), paste0("Ncontrols_", type))
       
-      if(is.numeric(n)) { d_out[,c("Ncases", "Ncontrols") := as.list(n)]
+      if(is.numeric(n)) {
+        d_out[,paste0("Ncases_", type), paste0("Ncontrols_", type) := as.list(n)]
       } else {
-          setnames(d_out, n, c("Ncases", "Ncontrols"))
+          setnames(d_out, n, paste0("Ncases_", type), paste0("Ncontrols_", type))
         }
     }
   }
