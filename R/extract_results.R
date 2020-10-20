@@ -1,6 +1,7 @@
 #' @export
 # compiles MR results from .RData files
-extract_results <- function(file, exposure = exposure, outcome = outcome, methods = NULL){
+extract_results <- function(file, exposure = exposure, outcome = outcome, methods = NULL,
+                            heterogeneity = FALSE){
   
   load(file)
   
@@ -23,6 +24,10 @@ extract_results <- function(file, exposure = exposure, outcome = outcome, method
       p <- NA 
       int <- NA
       p_pleiotropy <- NA
+      if(heterogeneity){
+        Q <- NA
+        p_het <- NA
+      }
       
     } else if(is.null(obj)){
       
@@ -34,8 +39,17 @@ extract_results <- function(file, exposure = exposure, outcome = outcome, method
       p <- NA 
       int <- NA
       p_pleiotropy <- NA
+      if(heterogeneity){
+        Q <- NA
+        p_het <- NA
+      }
       
     } else if(method %in% "MR-PRESSO"){
+      
+      if(heterogeneity){
+        Q <- NA
+        p_het <- NA
+      }
       
       beta <- obj[[1]][2,"Causal Estimate"]
       
@@ -49,8 +63,18 @@ extract_results <- function(file, exposure = exposure, outcome = outcome, method
       p <- obj[[1]][2,"P-value"]
       int <- NA
       p_pleiotropy <- obj$`MR-PRESSO results`$`Global Test`$Pvalue
-      
+
     } else {
+      
+      if(heterogeneity & mod %in% "res_ivwr"){
+        Q <- obj@Heter.Stat[1]
+        p_het <- obj@Heter.Stat[2]
+      } else {
+        Q <- NA
+        p_het <- NA
+      }
+      
+      
       
       stderr <- switch(mod, "res_egger" = "StdError.Est", "StdError")
       cilower <- switch(mod, "res_egger" = "CILower.Est", "CILower")
@@ -70,6 +94,10 @@ extract_results <- function(file, exposure = exposure, outcome = outcome, method
     }
     
     df_out <- data.frame(exposure, outcome, method, n, beta, se, cil, ciu, p, int, p_pleiotropy)
+    if(heterogeneity){
+      df_out <- data.frame(exposure, outcome, method,
+                           n, beta, se, cil, ciu, p, int, p_pleiotropy, Q, p_het)
+    }
     
     return(df_out)
     
