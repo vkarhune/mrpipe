@@ -9,7 +9,7 @@ extract_results <- function(file, exposure = exposure, outcome = outcome, method
     
     method = switch(mod,
                     "res_ivw" = "IVW", "res_ivwr" = "IVW-RE", "res_egger" = "MR-Egger", "res_wm" = "Weighted Median",
-                    "res_mode" = "Weighted Mode", "res_presso" = "MR-PRESSO", res_conmix = "ConMix", NULL
+                    "res_wmode" = "Weighted Mode", "res_presso" = "MR-PRESSO", res_conmix = "ConMix", NULL
     )
     
     tryCatch(obj <- get(mod), error = function(error){return(cat(sprintf("Object %s not found for %s on %s\n", mod, exposure, outcome)))})
