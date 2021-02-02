@@ -1,7 +1,9 @@
 #' @export
 # performs MR and creates output
 
-perform_mr <- function(d_input = d_mr, output_name = NULL, expo = expo, outcome = outcome){
+perform_mr <- function(d_input = d_mr, mr_input_data = NULL, output_name = NULL,
+                       expo = expo, outcome = outcome, save = TRUE){
+  if(is.null(mr_input_data)){
   mr_input_data <- MendelianRandomization::mr_input(
     bx = d_input$BETA_exposure,
     bxse = d_input$SE_exposure,
@@ -10,7 +12,7 @@ perform_mr <- function(d_input = d_mr, output_name = NULL, expo = expo, outcome 
 
     snps = d_input$SNP
   )
-
+  }
   # TODO: edit options
   if(dim(d_input)[1] > 0){
     (res_ivwr <- MendelianRandomization::mr_ivw(mr_input_data, model = "random"))
@@ -31,7 +33,10 @@ perform_mr <- function(d_input = d_mr, output_name = NULL, expo = expo, outcome 
 
   # output <- paste0(c(expo, args[-1]), collapse="_")
 
-  save(list=objects_to_save, file = paste0("results/", output_name, ".RData"))
-
+  if(save){
+    save(list=objects_to_save, file = paste0("results/", output_name, ".RData"))
+  } else {
+    print(res_ivwr)
+  }
 
 }
