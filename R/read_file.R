@@ -10,7 +10,7 @@ read_file <- function(file,
   } else if(is_nealelab | tools::file_ext(file) %in% "zip"){
     d_out <- fread(cmd = paste0("zcat ", file), check.names = T)
   } else {
-    d_out <- fread(file, check.names = T, fill = T, nrows = ifelse(testing, 10000, Inf))
+    d_out <- fread(file = file, check.names = T, fill = T, nrows = ifelse(testing, 10000, Inf))
   }
   
   if(is_nealelab){
